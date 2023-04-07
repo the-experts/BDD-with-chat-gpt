@@ -1,0 +1,7 @@
+micronaut:
+  application:
+    name: bookstoreapi
+netty:
+  default:
+    allocator:
+      max-order: 3
