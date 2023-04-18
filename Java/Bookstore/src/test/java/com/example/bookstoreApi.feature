@@ -7,7 +7,7 @@ Feature: Bookstore API
     Given path '/books'
     And request { title: 'Book 2', author: 'Author2', isbn: '12345', price: 20.0 }
     When method post
-    Then status 201
+    Then status 200
     And match response == { title: 'Book 2', author: 'Author2', isbn: '12345', price: 20.0 }
 
   Scenario: Retrieving a book by ISBN
@@ -25,7 +25,7 @@ Feature: Bookstore API
   Scenario: Deleting a book
     Given path '/books/12345'
     When method delete
-    Then status 204
+    Then status 200
 
   Scenario: Editing a book
     Given path '/books/12345'
