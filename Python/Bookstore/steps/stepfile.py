@@ -2,6 +2,9 @@ from behave import *
 
 from requests import *
 
+@given(u'url \'http://localhost:8000\'')
+def step_impl(context):
+    context.base_url = 'http://localhost:8000'
 
 @given('path \'/books\'')
 def step_impl(context):
@@ -13,7 +16,8 @@ def step_impl(context):
     context.url = context.base_url + '/books/12345'
 
 
-@given('request { title: \'{title}\', author: \'{author}\', isbn: \'{isbn}\', price: {price} }')
+# @given('request \{ "title": \'Book 2\', "author": \'Author2\', "isbn": \'12345\', "price": 20.0 }')
+@given('request { "title": \"{title}\", "author": \"{author}\", "isbn": \"{isbn}\", "price": {price} }')
 def step_impl(context, title, author, isbn, price):
     context.request = {
         "title": title,
@@ -57,4 +61,5 @@ def step_impl(context, response):
 @then('match response contains {response}')
 def step_impl(context, response):
     expected_response = eval(response)
-    assert all(item in context.response.json() for item in expected_response.values())
+    assert expected_response in context.response.json()
+
