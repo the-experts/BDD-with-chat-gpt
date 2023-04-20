@@ -63,3 +63,35 @@ Feature: Rekenmachine
   Scenario: Vermenigvuldigen van negatieve getallen
     Given de rekenmachine is ingeschakeld
     When ik twee getallen invoer: -4 en 3
+    Then zou de uitvoer gelijk moeten zijn aan -12
+
+  Scenario: Berekenen van goniometrische functies
+    Given de rekenmachine is ingeschakeld
+    When Ik voer 0 in
+    And ik de sinusknop indruk
+    Then zou de uitvoer gelijk moeten zijn aan 0
+
+    Given de rekenmachine is ingeschakeld
+    When Ik voer 45 in
+    And ik de sinusknop indruk
+    Then zou de uitvoer gelijk moeten zijn aan 0.8509035245341184
+
+    Given de rekenmachine is ingeschakeld
+    When Ik voer 1 in
+    And ik de cosinuskop indruk
+    Then zou de uitvoer gelijk moeten zijn aan 0.5403023058681398
+
+    Given de rekenmachine is ingeschakeld
+    When Ik voer 60 in
+    And ik de cosinuskop indruk
+    Then zou de uitvoer gelijk moeten zijn aan -0.9524129804151563
+
+    Given de rekenmachine is ingeschakeld
+    When Ik voer 1 in
+    And ik de tangensknop indruk
+    Then zou de uitvoer gelijk moeten zijn aan 1.557407724654902
+
+    Given de rekenmachine is ingeschakeld
+    When Ik voer 45 in
+    And ik de tangensknop indruk
+    Then zou de uitvoer gelijk moeten zijn aan 1.6197751905438615
