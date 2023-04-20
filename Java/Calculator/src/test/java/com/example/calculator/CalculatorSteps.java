@@ -1,9 +1,10 @@
 package com.example.calculator;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.Assert.*;
 
 public class CalculatorSteps {
     Calculator calculator;
@@ -18,10 +19,18 @@ public class CalculatorSteps {
     }
 
     @When("I enter {string} and {string} and select {string}")
-    public void i_enter_and_select(String num1, String num2, String operation) {
+    public void i_enter_and_enter_and_select(String num1, String num2, String operation) {
         try {
             double number1 = Double.parseDouble(num1);
-            double number2 = Double.parseDouble(num2);
+            boolean inRadians = false;
+            double number2 = 0;
+            if(num2.equals("true") || num2.equals("false")){
+                inRadians = Boolean.parseBoolean(num2);
+            } else {
+                number2 = Double.parseDouble(num2);
+            }
+
+
 
             switch (operation) {
                 case "add":
@@ -43,6 +52,67 @@ public class CalculatorSteps {
                 case "power":
                     result = calculator.power(number1, number2);
                     break;
+                case "square root":
+                    try {
+                        result = calculator.squareRoot(number1);
+                    } catch (ArithmeticException e) {
+                        errorMessage = e.getMessage();
+                    }
+                    break;
+                case "factorial":
+                    try {
+                        result = calculator.factorial((int) number1);
+                    } catch (IllegalArgumentException e) {
+                        errorMessage = e.getMessage();
+                    }
+                    break;
+                case "log base 10":
+                    result = calculator.logBase10(number1);
+                    break;
+                case "natural log":
+                    result = calculator.naturalLog(number1);
+                    break;
+                case "sin":
+                    result = calculator.sin(number1);
+                    break;
+                case "cos":
+                    result = calculator.cos(number1);
+                    break;
+                case "tan":
+                    result = calculator.tan(number1);
+                    break;
+            }
+        } catch (NumberFormatException e) {
+            errorMessage = "input validation error";
+        }
+    }
+
+    @When("I enter {string} and select {string}")
+    public void i_enter_and_select(String num1, String operation) {
+        try {
+            double number1 = Double.parseDouble(num1);
+
+            switch (operation) {
+                case "square root":
+                    try {
+                        result = calculator.squareRoot(number1);
+                    } catch (ArithmeticException e) {
+                        errorMessage = e.getMessage();
+                    }
+                    break;
+                case "factorial":
+                    try {
+                        result = calculator.factorial((int) number1);
+                    } catch (IllegalArgumentException e) {
+                        errorMessage = e.getMessage();
+                    }
+                    break;
+                case "log base 10":
+                    result = calculator.logBase10(number1);
+                    break;
+                case "natural log":
+                    result = calculator.naturalLog(number1);
+                    break;
             }
         } catch (NumberFormatException e) {
             errorMessage = "input validation error";
@@ -57,6 +127,11 @@ public class CalculatorSteps {
     @Then("the calculator should display an error message")
     public void the_calculator_should_display_an_error_message() {
         assertTrue(errorMessage.contains("division by zero"));
+    }
+    @Then("the calculator should display an arithmetic error message")
+    public void the_calculator_should_display_an_arithmetic_error_message() {
+        System.out.println(errorMessage);
+        assertTrue(errorMessage.contains("cannot calculate"));
     }
 
     @Then("the calculator should display an input validation error")
@@ -87,10 +162,7 @@ public class CalculatorSteps {
                 } catch (ArithmeticException e) {
                     errorMessage = e.getMessage();
                 }
-                break;
-            case "power":
-                result = calculator.power(previousResult, number);
-                break;
         }
     }
+
 }

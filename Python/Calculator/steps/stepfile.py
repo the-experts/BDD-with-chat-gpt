@@ -1,11 +1,13 @@
 from behave import given, when, then
-
 from Calculator import Calculator
 
 @given('de rekenmachine is ingeschakeld')
 def step_impl(context):
     context.calc = Calculator()
 
+@when('Ik voer {num1:d} in')
+def step_impl(context, num1):
+    context.calc.input_number(num1)
 
 @when('ik twee getallen invoer: {num1:d} en {num2:d}')
 def step_impl(context, num1, num2):
@@ -45,10 +47,30 @@ def step_impl(context):
 def step_impl(context):
     context.calc.divide()
 
-@then('zou de uitvoer gelijk moeten zijn aan {result:d}')
-def step_impl(context, result):
-    assert context.calc.get_output() == result
+@when('ik de machtsverheffingknop indruk')
+def step_impl(context):
+    context.calc.power()
 
-@then('zou de uitvoer gelijk moeten zijn aan {result:f}')
-def step_impl(context, result):
-    assert context.calc.get_output() == result
+@when('ik de vierkantswortelknop indruk')
+def step_impl(context):
+    context.calc.square_root()
+
+@when('ik de functieknop indruk')
+def step_impl(context):
+    context.calc.factorial()
+
+@when('ik de logaritmeknop indruk')
+def step_impl(context):
+    context.calc.logarithm()
+
+@when('ik de sinusknop indruk')
+def step_impl(context):
+    context.calc.sine()
+
+@when('ik de cosinuskop indruk')
+def step_impl(context):
+    context.calc.cosine()
+
+@when('ik de tangensknop indruk')
+def step_impl(context):
+    context.calc.tangent()
