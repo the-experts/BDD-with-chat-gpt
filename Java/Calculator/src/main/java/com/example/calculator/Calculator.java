@@ -25,6 +25,49 @@ public class Calculator {
         return Math.pow(num1, num2);
     }
 
+    public double squareRoot(double num) {
+        if (num < 0) {
+            throw new ArithmeticException("cannot calculate square root of a negative number");
+        }
+        return Math.sqrt(num);
+    }
+
+    public int factorial(int num) {
+        if (num < 0) {
+            throw new IllegalArgumentException("cannot calculate factorial of a negative number");
+        }
+        if (num == 0) {
+            return 1;
+        }
+        return num * factorial(num - 1);
+    }
+
+    public double logBase10(double num) {
+        if (num <= 0) {
+            throw new ArithmeticException("cannot calculate logarithm of a non-positive number");
+        }
+        return Math.log10(num);
+    }
+
+    public double naturalLog(double num) {
+        if (num <= 0) {
+            throw new ArithmeticException("cannot calculate natural logarithm of a non-positive number");
+        }
+        return Math.log(num);
+    }
+
+    public double sin(double num) {
+        return Math.sin(num);
+    }
+
+    public double cos(double num) {
+        return Math.cos(Math.toRadians(num));
+    }
+
+    public double tan(double num) {
+        return Math.tan(Math.toRadians(num));
+    }
+
     public String validateInputs(String num1, String num2) {
         try {
             Double.parseDouble(num1);
